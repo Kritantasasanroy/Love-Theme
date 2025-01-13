@@ -1,68 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Theme</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background: linear-gradient(to bottom, #ffcccc, #ff99cc);
-            font-family: 'Arial', sans-serif;
-            color: #ffffff;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Card</title>
+  <style>
+    html, body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
 
-        .glow-container {
-            text-align: center;
-        }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #3e1d28; /* Darker background color */
+      font-family: Arial, sans-serif;
+      background-image: 
+        url('https://assets.codepen.io/4927073/Background6.png'),
+        url('https://assets.codepen.io/4927073/Group2.png');
+      background-size: cover, contain;
+      background-position: center, bottom;
+      background-repeat: no-repeat;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            text-shadow: 0 0 20px #ff6699, 0 0 30px #ff3366;
-            margin-bottom: 20px;
-        }
+    .dark-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 0, 0, 0.8) 50%, rgba(62, 29, 40, 0.95) 100%);
+      z-index: 0;
+    }
 
-        button {
-            background-color: #ff3366;
-            border: none;
-            border-radius: 30px;
-            color: #ffffff;
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(255, 51, 102, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .heart {
+      clip-path: polygon(50% 0%, 100% 40%, 75% 100%, 50% 75%, 25% 100%, 0% 40%);
+      filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.5)); /* Heart shadow */
+    }
 
-        button:hover {
-            background-color: #ff6699;
-            box-shadow: 0 6px 20px rgba(255, 102, 153, 0.7);
-            transform: scale(1.05);
-        }
+    .envelope {
+      position: absolute;
+      bottom: 12%;
+      left: calc(50% - 300px); /* Center envelope */
+      width: 460px; /* Makes it larger */
+      content: url('https://assets.codepen.io/4927073/Envelope3.png');
+      filter: drop-shadow(1.5px 0.75px 1.75px rgba(0, 0, 0, 0.632));
+      z-index: 1;
+    }
 
-        button:active {
-            transform: scale(0.95);
-        }
-    </style>
+    .card {
+      position: relative;
+      width: 200px;
+      height: 300px;
+      perspective: 1500px;
+      z-index: 10; /* Ensures card is above the envelope */
+    }
+
+    .page {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      transform-origin: left;
+      transform-style: preserve-3d;
+      transition: transform 0.6s ease-in-out;
+      border: 1px solid #ddd;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .page:nth-child(odd), .page:nth-child(even) {
+      background-color: #eb7aa5; /* Same color for all pages */
+    }
+
+    .page .text-container {
+      padding: 20px;
+      text-align: left;
+      font-size: 0.8rem;
+      color: #ffffff;
+    }
+
+    .page:last-child .text-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .page .text-container p:last-child {
+      margin-top: 50px;
+      text-align: left;
+      font-style: italic;
+    }
+
+    .card .page {
+      cursor: pointer;
+    }
+
+    .flipped {
+      transform: rotateY(-180deg);
+    }
+
+    @media (max-width: 768px) {
+      .envelope {
+        width: 300px;
+        bottom: 5%;
+        left: calc(50% - 150px); /* Center on mobile */
+      }
+
+      .card {
+        width: 250px;
+        height: 350px;
+      }
+
+      .heart {
+        width: 30px; /* Smaller hearts for mobile */
+        height: 30px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="glow-container">
-        <h1>What you mean to me...</h1>
-        <button onclick="nextPage()">Click Here</button>
+  <div class="dark-overlay"></div>
+  <div class="hearts">
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+  </div>
+  <div class="envelope"></div>
+  <div class="card">
+    <!-- Pages remain unchanged -->
+    <div class="page">
+      <div class="text-container">
+        <p>At last, I would like to say that whatever may your answer be, but remember my love for you is a permanence...</p>
+        <p><em>Kritanta Sasan Roy</p>
+      </div>
     </div>
-
-    <script>
-        function nextPage() {
-            window.location.href = 'nextpage.html'; // Redirects to the next page
-        }
-    </script>
+    <div class="page">
+      <div class="text-container">
+        <p>Can you please give me one more chance to just try out the things, just once? Just give it a shot and then judge whatever happens...</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>So I'm not asking you to believe me. I'm just asking you to give me a chance. I know I may not be the greatest person you know, but I know I can do better, and I'm telling you right now, I promise I'll never stop trying.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>I know I'm a terrible person. I ignored you a lot that's bad for you and terrible for me. I made some mistakes, I know that, I also know that I can do better, and I know it's easier said than done. It's a lot of work, and I hope I'm not too late. Every day, every decision is an opportunity...</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>You know why you are so special to me? You are the best thing that happened to me. Talking to you would make me forget everything. Hours pass by in seconds, and all my problems gets vanished by magical voice.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>You are the first love of my life. I always tried not to lose you ever and to be with you forever.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>Maybe I'm immature, and you might find all this very cringe, but I just said whatever came to my mind and opened my heart out.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>The day you said that it was actually me whom you liked, I was overwhelmed with emotions. That night I couldn't say anything I got blanked out, always feared if I became too open, I might lose you.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>Your every problem, big or small, killed me from inside, and I would my best to help you, put my heart out to be able to help you.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <p>I have always been a very shy and intimidating person, you were the first person whom I truly liked. For the very first time in my life, I felt something like that for someone.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <h1>To Megha</h1>
+        <p>You are the person who pushes me to do things, to be cheerful, and an idol to show how to live life to the fullest and enjoy life.</p>
+      </div>
+    </div>
+    <div class="page">
+      <div class="text-container">
+        <h1>What you mean to me...</h1>
+      </div>
+    </div>
+    <!-- Additional pages remain unchanged -->
+  </div>
+  <script>
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => {
+      page.addEventListener('click', () => {
+        page.classList.toggle('flipped');
+      });
+    });
+  </script>
 </body>
 </html>
